@@ -10,9 +10,9 @@ const handle = app.getRequestHandler()
 app.prepare().then(() => {
   const server = express();
 
-server.get('/catergory-server', function (req, res) {
-  res.json(require('./category'))
-})
+  server.get('/category-server', function (req, res) {
+    res.json(require('./category'))
+  })
 
   server.all('*', (req, res) => {
     return handle(req, res)
