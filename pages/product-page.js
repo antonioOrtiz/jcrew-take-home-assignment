@@ -23,7 +23,6 @@ export const getStaticProps = async () => {
 
 
 function ProductPage({ data }) {
-
   return (
     <>
       <NextSeo
