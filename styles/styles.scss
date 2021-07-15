@@ -29,6 +29,17 @@ a {
     font-size: 1em;
 }
 
+.product-link {
+    cursor: pointer;
+}
+
 .product-image {
     width: 100%;
+}
+
+.swatch {
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    margin-right: 0.5rem;
 }

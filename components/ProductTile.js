@@ -53,8 +53,6 @@ const ProductTile = ({ data }) => {
           all[i].removeAttribute(attr[j]);
         }
 
-        // Re-hide display:none elements,
-        // so they can be toggled via JS.
         if (is_hidden) {
           all[i].style.display = 'none';
           is_hidden = false;
@@ -68,28 +66,37 @@ const ProductTile = ({ data }) => {
   const myLoader = ({ src }) => {
     return `https://www.jcrew.com/s7-img-facade/${src}`
   }
+
+  const getColorSwatches = (products, index) => {
+    if (products[index] != undefined) {
+      return JSON.stringify(products[index].colors)
+    }
+  }
+
   return (
     <div>
       <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
         {
-          products.reduce((products, product) => products.find(x => x.productId === product.productId) ? products : [...products, product], []).map(({ colorCode, defaultColorCode, now, productId, productCode, productDescription, }, index) => {
-            let path = myLoader(`${productCode}_${defaultColorCode}`)
+          products.reduce((products, product) => products.find(x => x.productId === product.productId) ? products : [...products, product], []).map(({ colorCode, defaultColorCode, now, productId, productCode,
+            productDescription, }, index) => {
+            let path = `https://www.jcrew.com/s7-img-facade/${productCode}_${defaultColorCode}`
+            let swatches = getColorSwatches(products, index)
 
             return (
-
               <Link key={`${productId}${index}`}
-
-
                 href={{
                   pathname: '/s7-img-facade/[slug]',
                   query: {
-                    slug: productCode, description: productDescription, image: path, price: now !== undefined
+                    slug: productCode,
+                    description: productDescription, image: path, price: now !== undefined
                       ? now.formatted
-                      : null
+                      : 'Not-available',
+                    colors: swatches
+
                   },
                 }}
                 passHref>
-                <div className="p-2 rounded overflow-hidden shadow-lg">
+                <div className="product-link p-2 rounded overflow-hidden shadow-lg">
                   <Image className="product-image" loader={myLoader}
                     src={`/${productCode}_${defaultColorCode}`} alt="Picture of the author" layout="fill" />
 
@@ -98,7 +105,7 @@ const ProductTile = ({ data }) => {
                     {
                       now !== undefined
                         ? now.formatted
-                        : null
+                        : 'Not-available'
                     }
                   </p>
 
