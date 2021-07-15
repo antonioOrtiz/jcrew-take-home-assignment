@@ -33,8 +33,8 @@ export default function Nav({ fixed }) {
               >
                 <ul className="flex flex-col space-x-10 lg:flex-row list-none lg:flex-start">
                   <li className="nav-item">
-                    <Link className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75" href="/product-page">
-                      <a>Product-Page</a>
+                    <Link className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75" href="/products">
+                      <a>Products</a>
                     </Link>
                   </li>
 

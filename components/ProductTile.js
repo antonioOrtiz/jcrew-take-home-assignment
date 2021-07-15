@@ -1,11 +1,10 @@
-import { now } from 'lodash';
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const ProductTile = ({ data }) => {
   let { productList } = data
   var [products] = productList
-  console.log("products ", products.products);
   var { products } = products;
 
   React.useEffect(() => {
@@ -71,33 +70,40 @@ const ProductTile = ({ data }) => {
   }
   return (
     <div>
-      <h1>Tiles</h1>
       <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-
         {
-          products.reduce((products, product) => products.find(x => x.productId === product.productId) ? products : [...products, product], []).map(({ defaultColorCode, now, productId, productCode, productDescription, }, index) => {
+          products.reduce((products, product) => products.find(x => x.productId === product.productId) ? products : [...products, product], []).map(({ colorCode, defaultColorCode, now, productId, productCode, productDescription, }, index) => {
+            let path = myLoader(`${productCode}_${defaultColorCode}`)
 
             return (
 
-              <div key={`${productId}${index}`} className="rounded overflow-hidden shadow-lg">
-                <Image className="product-image" loader={myLoader}
-                  src={`/${productCode}_${defaultColorCode}`} alt="Picture of the author" layout="fill" />
+              <Link key={`${productId}${index}`}
 
-                <h1 key={productId} className="font-bold text-xl mb-2">{productDescription}</h1>
-                <p className="text-gray-700 text-base">
-                  {
-                    now !== undefined
+
+                href={{
+                  pathname: '/s7-img-facade/[slug]',
+                  query: {
+                    slug: productCode, description: productDescription, image: path, price: now !== undefined
                       ? now.formatted
                       : null
-                  }
-                </p>
+                  },
+                }}
+                passHref>
+                <div className="p-2 rounded overflow-hidden shadow-lg">
+                  <Image className="product-image" loader={myLoader}
+                    src={`/${productCode}_${defaultColorCode}`} alt="Picture of the author" layout="fill" />
 
-                <div className="px-6 pt-4 pb-2">
-                  <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-                  <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-                  <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+                  <p className="font-medium text-sm mb-2">{productDescription}</p>
+                  <p className="text-sm text-gray-700">
+                    {
+                      now !== undefined
+                        ? now.formatted
+                        : null
+                    }
+                  </p>
+
                 </div>
-              </div>
+              </Link>
 
             )
           })}
