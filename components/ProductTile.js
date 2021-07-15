@@ -82,8 +82,6 @@ const ProductTile = ({ data }) => {
             let path = `https://www.jcrew.com/s7-img-facade/${productCode}_${defaultColorCode}`
             let swatches = getColorSwatches(products, index)
 
-
-
             return (
               <Link key={`${productId}${index}`}
                 href={{
@@ -101,7 +99,7 @@ const ProductTile = ({ data }) => {
                 passHref>
                 <div className="product-link p-2 rounded overflow-hidden shadow-lg">
                   <Image className="product-image" loader={myLoader}
-                    src={`/${productCode}_${defaultColorCode}`} alt="Picture of the author" layout="fill" />
+                    src={`/${productCode}_${defaultColorCode}`} alt={productDescription} layout="fill" />
 
                   <p className="font-medium text-sm mb-2">{productDescription}</p>
                   <p className="text-sm text-gray-700">
@@ -114,21 +112,12 @@ const ProductTile = ({ data }) => {
 
                 </div>
               </Link>
-
             )
           })}
       </div>
 
     </div>
   )
-
-
-
-
-
-
-
-
 }
 
 

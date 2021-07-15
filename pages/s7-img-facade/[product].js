@@ -15,9 +15,6 @@ function Product({ query }) {
   }
 
   useEffect(() => {
-
-    console.log("defaultColorCode ", defaultColorCode);
-    console.log("productImage ", productImage);
     function remove_style(all) {
       var i = all.length;
       var j, is_hidden;
@@ -93,7 +90,7 @@ function Product({ query }) {
       </div>
 
       <span className="p-3 font-medium text-sm mb-2">
-        <Swatches handleProductChange={handleProductChange} productImage={productImage} productCode={product} colors={colors} />
+        <Swatches handleProductChange={handleProductChange} defaultColorCode={defaultColorCode} productImage={productImage} productCode={product} colors={colors} />
       </span>
     </div>
   )
@@ -106,7 +103,6 @@ export const getServerSideProps = ({ query }) => {
     }
   }
 }
-
 
 
 export default Product

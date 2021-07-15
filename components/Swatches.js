@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-const Swatches = ({ handleProductChange, productCode, colors }) => {
+const Swatches = ({ defaultColorCode, handleProductChange, productCode, colors }) => {
+
   let [swatchName, setSwatchName] = useState('');
+
   useEffect(() => {
-
-    console.log("    colors ", colors);
-
     function remove_style(all) {
       var i = all.length;
       var j, is_hidden;
@@ -62,16 +61,12 @@ const Swatches = ({ handleProductChange, productCode, colors }) => {
     remove_style(all);
   }, [])
 
-  useEffect(() => {
-    setSwatchName(colors[0].colorName.charAt(0) + colors[0].colorName.substring(1).toLowerCase())
-  }, [])
-
   const myLoader = ({ src }) => {
     return `https://www.jcrew.com/s7-img-facade/${src}_sw`
   }
 
   const handleColorChange = (productCode, colorCode, swatch) => {
-    handleProductChange(productCode, colorCode);
+    handleProductChange(colorCode, productCode);
     setSwatchName(swatch)
   }
 
@@ -80,20 +75,30 @@ const Swatches = ({ handleProductChange, productCode, colors }) => {
       <p className=" font-medium text-m mb-2">Color: {
         swatchName
       }</p>
-      {colors.map((swatch, index) => {
+
+      {colors.map((swatch, index, arr) => {
         return (
           <div key={swatch.colorCode} className="inline-block">
-            <Image onClick={() => {
-              handleColorChange(swatch.colorName, productCode, swatch.colorName.charAt(0) + swatch.colorName.substring(1).toLowerCase())
+            <Image onLoad={() => {
+              var swatchName = arr.sort(function (x, y) {
+                return x.colorCode == defaultColorCode ? -1 : y.colorCode == defaultColorCode ? 1 : 0;
+              })
 
+              console.log("swatchName ", swatchName);
+              setSwatchName(() => swatchName[0].colorName.charAt(0) + swatchName[0].colorName.substring(1).toLowerCase())
+
+            }
+            } onClick={() => {
+              handleColorChange(swatch.colorCode, productCode, swatch.colorName.charAt(0) + swatch.colorName.substring(1).toLowerCase())
             }
             } className=" swatch" loader={myLoader}
               src={`${productCode}_${swatch.colorCode}`} alt={swatch.colorName.charAt(0) + swatch.colorName.substring(1).toLowerCase()} layout="fill" />
           </div>
         )
+      }).sort(function (x, y) {
+        return x.key == defaultColorCode ? -1 : y.key == defaultColorCode ? 1 : 0;
       })
       }
-
 
     </div >
   )

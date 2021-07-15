@@ -1,11 +1,23 @@
 import Head from 'next/head'
-import Image from 'next/image'
 
-import Layout from '../components/Layout.js'
+import ProductPage from './products.js'
 
-import CategoryPage from './category-page'
+export const getStaticProps = async () => {
+  try {
+    const res = await fetch('http://localhost:8000/category-server/')
+    const data = await res.json()
 
-export default function Home() {
+    return {
+      props: {
+        data: data
+      },
+    }
+  } catch (error) {
+    console.log('errors', error)
+  }
+}
+
+export default function Home({ data }) {
   return (
     <>
       <Head>
@@ -13,7 +25,7 @@ export default function Home() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <CategoryPage />
+      <ProductPage data={data} />
     </>
   )
 }

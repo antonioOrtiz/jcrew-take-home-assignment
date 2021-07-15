@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Layout from '../components/Layout.js'
 import { NextSeo } from 'next-seo'; // then add the `NextSeo` at any `pages/` that you wish
 
-function ProductPage({ }) {
+function CategoryPage({ }) {
   return (
     <>
       <NextSeo
@@ -15,7 +15,7 @@ function ProductPage({ }) {
   )
 }
 
-export default ProductPage
+export default CategoryPage
 
 
 

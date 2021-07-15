@@ -1,7 +1,7 @@
 import React from "react";
 import Link from 'next/link'
 
-export default function Nav({ fixed }) {
+export default function Nav() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   return (
     <>
@@ -12,7 +12,7 @@ export default function Nav({ fixed }) {
               <div className="flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
                 <a
                   className="jcrew-logo text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
-                  href="#pablo"
+                  href="#"
                 >
                   J.CREW
                 </a>
@@ -35,12 +35,6 @@ export default function Nav({ fixed }) {
                   <li className="nav-item">
                     <Link className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75" href="/products">
                       <a>Products</a>
-                    </Link>
-                  </li>
-
-                  <li className="nav-item">
-                    <Link className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75" href="/">
-                      <a>Category Page</a>
                     </Link>
                   </li>
                 </ul>
