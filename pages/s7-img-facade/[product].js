@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import Swatches from '../../components/Swatches.js'
 
 function Product({ query }) {
-  var { description, colors, product, image, price } = query;
+  let { defaultColorCode, description, colors, product, price } = query;
   colors = JSON.parse(colors)
 
+  let [productImage, setProductImage] = useState(`/${product}_${defaultColorCode}`);
 
-  React.useEffect(() => {
+  const handleProductChange = (productCode, defaultColorCode) => {
+    setProductImage(`/${productCode}_${defaultColorCode}`)
+  }
+
+  useEffect(() => {
+
+    console.log("defaultColorCode ", defaultColorCode);
+    console.log("productImage ", productImage);
     function remove_style(all) {
       var i = all.length;
       var j, is_hidden;
@@ -71,25 +79,22 @@ function Product({ query }) {
 
   return (
     <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-5">
-      <Link href="#"
-        passHref>
-        <div className="product-link p-2 rounded overflow-hidden shadow-lg">
-          <Image className="product-image" loader={myLoader}
-            src={`/${image}`} alt="Picture of the author" layout="fill" />
 
-          <p className="font-medium text-sm mb-2">{description}</p>
-          <p className="text-sm text-gray-700">
-            {
-              price
-            }
-          </p>
-        </div>
-      </Link>
+      <div className="product-link p-2 rounded overflow-hidden shadow-lg">
+        <Image className="product-image" loader={myLoader}
+          src={productImage} alt={description} layout="fill" />
+
+        <p className="font-medium text-sm mb-2">{description}</p>
+        <p className="text-sm text-gray-700">
+          {
+            price
+          }
+        </p>
+      </div>
 
       <span className="p-3 font-medium text-sm mb-2">
-        <Swatches productCode={product} colors={colors} />
+        <Swatches handleProductChange={handleProductChange} productImage={productImage} productCode={product} colors={colors} />
       </span>
-
     </div>
   )
 }

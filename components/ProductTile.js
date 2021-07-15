@@ -82,11 +82,14 @@ const ProductTile = ({ data }) => {
             let path = `https://www.jcrew.com/s7-img-facade/${productCode}_${defaultColorCode}`
             let swatches = getColorSwatches(products, index)
 
+
+
             return (
               <Link key={`${productId}${index}`}
                 href={{
                   pathname: '/s7-img-facade/[slug]',
                   query: {
+                    defaultColorCode: defaultColorCode,
                     slug: productCode,
                     description: productDescription, image: path, price: now !== undefined
                       ? now.formatted

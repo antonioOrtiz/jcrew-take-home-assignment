@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-const Swatches = ({ productCode, colors }) => {
-
+const Swatches = ({ handleProductChange, productCode, colors }) => {
+  let [swatchName, setSwatchName] = useState('');
   useEffect(() => {
+
+    console.log("    colors ", colors);
+
     function remove_style(all) {
       var i = all.length;
       var j, is_hidden;
@@ -59,30 +62,34 @@ const Swatches = ({ productCode, colors }) => {
     remove_style(all);
   }, [])
 
-
-  const handleSwatchLoader = (name) => {
-    setSwatchName(name)
-  }
-
+  useEffect(() => {
+    setSwatchName(colors[0].colorName.charAt(0) + colors[0].colorName.substring(1).toLowerCase())
+  }, [])
 
   const myLoader = ({ src }) => {
     return `https://www.jcrew.com/s7-img-facade/${src}_sw`
   }
 
+  const handleColorChange = (productCode, colorCode, swatch) => {
+    handleProductChange(productCode, colorCode);
+    setSwatchName(swatch)
+  }
+
   return (
     <div>
       <p className=" font-medium text-m mb-2">Color: {
-        swatch.colorName.charAt(0) + swatch.colorName.substring(1).toLowerCase()
+        swatchName
       }</p>
       {colors.map((swatch, index) => {
-
         return (
-          <>
+          <div key={swatch.colorCode} className="inline-block">
+            <Image onClick={() => {
+              handleColorChange(swatch.colorName, productCode, swatch.colorName.charAt(0) + swatch.colorName.substring(1).toLowerCase())
 
-
-            <Image key={swatch.colorCode} className="swatch" loader={myLoader}
-              src={`/${productCode}_${swatch.colorCode}`} alt={swatch.colorName.charAt(0) + swatch.colorName.substring(1).toLowerCase()} layout="fill" />
-          </>
+            }
+            } className=" swatch" loader={myLoader}
+              src={`${productCode}_${swatch.colorCode}`} alt={swatch.colorName.charAt(0) + swatch.colorName.substring(1).toLowerCase()} layout="fill" />
+          </div>
         )
       })
       }

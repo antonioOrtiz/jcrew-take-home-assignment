@@ -18,9 +18,7 @@ export const getStaticProps = async () => {
   } catch (error) {
     console.log('errors', error)
   }
-
 }
-
 
 function ProductPage({ data }) {
   return (
@@ -29,7 +27,7 @@ function ProductPage({ data }) {
         title="Product Page"
       />
       <Layout>
-        <h1>Product Page</h1>
+        <h1 className="p-10 " >Product Page</h1>
         <ProductTile data={data} />
       </Layout>
     </>
