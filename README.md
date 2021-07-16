@@ -10,7 +10,7 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:8000)](http://localhost:8000) with your browser to see the result.
+Open [http://localhost:8000](http://localhost:8000) with your browser to see the result.
 
 This project was created with [Next.js](https://nextjs.org/) and [TailwindCSS](https://v1.tailwindcss.com/)
 
