@@ -83,8 +83,6 @@ const Swatches = ({ defaultColorCode, handleProductChange, productCode, colors }
               var swatchName = arr.sort(function (x, y) {
                 return x.colorCode == defaultColorCode ? -1 : y.colorCode == defaultColorCode ? 1 : 0;
               })
-
-              console.log("swatchName ", swatchName);
               setSwatchName(() => swatchName[0].colorName.charAt(0) + swatchName[0].colorName.substring(1).toLowerCase())
 
             }

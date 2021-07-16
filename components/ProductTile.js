@@ -2,10 +2,10 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const ProductTile = ({ data }) => {
+const ProductTile = ({ data = {} }) => {
   let { productList } = data
-  var [products] = productList
-  var { products } = products;
+  var [products] = productList || []
+  var { products } = products || {};
 
   React.useEffect(() => {
     function remove_style(all) {
@@ -77,7 +77,7 @@ const ProductTile = ({ data }) => {
     <div>
       <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
         {
-          products.reduce((products, product) => products.find(x => x.productId === product.productId) ? products : [...products, product], []).map(({ colorCode, defaultColorCode, now, productId, productCode,
+          products != undefined && products.reduce((products, product) => products.find(x => x.productId === product.productId) ? products : [...products, product], []).map(({ colorCode, defaultColorCode, now, productId, productCode,
             productDescription, }, index) => {
             let path = `https://www.jcrew.com/s7-img-facade/${productCode}_${defaultColorCode}`
             let swatches = getColorSwatches(products, index)
@@ -118,6 +118,14 @@ const ProductTile = ({ data }) => {
 
     </div>
   )
+
+
+
+
+
+
+
+
 }
 
 
