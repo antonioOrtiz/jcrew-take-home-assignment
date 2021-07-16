@@ -12,6 +12,7 @@
         "axios": "^0.21.1",
         "express": "^4.17.1",
         "next": "11.0.1",
+        "next-absolute-url": "^1.2.2",
         "next-seo": "^4.26.0",
         "nodemon": "^2.0.12",
         "react": "17.0.2",

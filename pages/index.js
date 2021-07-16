@@ -1,19 +1,27 @@
 import Head from 'next/head'
+import absoluteUrl from 'next-absolute-url'
+import dynamic from 'next/dynamic'
 
-import ProductPage from './products.js'
 
-export const getStaticProps = async () => {
-  try {
-    const res = await fetch('http://localhost:8000/category-server/')
-    const data = await res.json()
+const ProductPage = dynamic(
+  () => import('./products.js'),
+  { ssr: false }
+)
 
-    return {
-      props: {
-        data: data
-      },
-    }
-  } catch (error) {
-    console.log('errors', error)
+const fetchRelative = (req, path) => {
+  const { origin } = absoluteUrl(req)
+  return fetch(`${origin}${path}`);
+}
+
+export const getStaticProps = async ({ req, res }) => {
+  if (typeof (window) !== 'undefined') {
+    var res = await fetchRelative(req, '/category-server/')
+    var data = await res.json()
+  }
+  return {
+    props: {
+      data: data || {}
+    },
   }
 }
 
