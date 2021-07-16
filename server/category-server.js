@@ -10,7 +10,7 @@ const handle = app.getRequestHandler()
 app.prepare().then(() => {
   const server = express();
 
-  server.get('/category-server', function (req, res) {
+  server.get('https://jcrew-take-home-assignment.herokuapp.com/category-server', function (req, res) {
     res.json(require('./category'))
   })
 
